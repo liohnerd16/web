@@ -1,14 +1,1 @@
-```
-# Environment variables
-.env.production
-
-# Dependencies
-node_modules/
-
-# Logs
-*.log
-
-# Backup files
-*.bak
-*.backup
-```
+(public/script.js)

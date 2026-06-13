@@ -1105,8 +1105,9 @@ function renderUpdates(updates) {
     const id = String(u.id);
     if (existingIds.has(id)) return;
 
-    const displayTitle = (lang === 'vi' && u.titleVi) ? u.titleVi : u.title;
-    const displayBody = (lang === 'vi' && u.bodyVi) ? u.bodyVi : u.body;
+    // Ưu tiên bản tiếng Việt nếu có, nếu không thì dùng bản gốc
+    const displayTitle = (lang === 'vi' && u.titleVi && u.titleVi.trim() !== '') ? u.titleVi : u.title;
+    const displayBody = (lang === 'vi' && u.bodyVi && u.bodyVi.trim() !== '') ? u.bodyVi : u.body;
     const li = document.createElement('li');
     li.setAttribute('data-id', id);
     li.innerHTML = `
