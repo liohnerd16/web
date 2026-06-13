@@ -48,7 +48,7 @@ The application uses a "Cache-First, Then-Fetch" strategy with smart preloading:
 - **Background Preloading**: The application automatically preloads dashboard data (`loadDashboard(true)`) and updates feed (`loadUpdates()`) in the background upon page initialization.
 - **Persistent Updates Cache**: The Updates feed stores the last 40 entries in `localStorage` (`gnz_updates_cache`), enabling instant display for returning users while syncing in the background.
 - **Updates Stale-While-Revalidate**: `loadUpdates()` uses a 60-second TTL — renders cached data instantly, only fetches API if cache is stale. Language toggling calls `renderUpdates(allUpdates)` directly with **zero network requests**.
-- **Updates Incremental Rendering**: `renderUpdates()` uses `data-id` attributes to track already-rendered items. On append (Load More), only new items are created in a `DocumentFragment` — existing DOM is untouched, reducing reflow.
+- **Updates Re-render on Language Toggle**: `renderUpdates()` clears the entire DOM and re-renders all items from cache on language switch, using `titleVi`/`bodyVi` fields for Vietnamese display. This ensures the EN/VI toggle correctly reflects the selected language.
 - **Pagination**: Both Videos and Updates feeds use `limit` and `offset` for optimized payload size.
 
 ### Edge Caching (Vercel)

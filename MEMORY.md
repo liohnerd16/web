@@ -19,4 +19,5 @@
   - **Client-Side Caching**: Cache-First for instant search/filtering/language-toggles.
   - **Parallel & Preload Dashboard Fetching**: Preloads dashboard data (profile, notifications, projects) on startup/login and fetches in parallel.
   - **Minification & Edge Caching**: Automated build pipeline for minified CSS/JS and Vercel Edge caching enabled.
-  - **Updates Stale-While-Revalidate**: Cache-first with 60s TTL, incremental rendering (append-only via `data-id`), zero redundant fetch on language toggle.
+  - **Updates Stale-While-Revalidate**: Cache-first with 60s TTL, full re-render on language toggle using `titleVi`/`bodyVi` fields for Vietnamese display.
+  - **Updates Language Toggle Fix (June 13, 2026)**: Removed incremental `data-id` tracking in `renderUpdates()` that prevented DOM updates on language switch. Now clears and re-renders all items from cache, ensuring bilingual content displays correctly.

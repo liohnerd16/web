@@ -40,14 +40,14 @@ Viec bat buoc truoc khi sua code:
  21. **Defer Script**: `<script defer src="/script.min.js">` — JS khong block HTML parsing.
  22. **Resource Hints**: preconnect (jsDelivr), preload (CSS/JS), dns-prefetch trong HTML head.
 > 23. **Updates Stale-While-Revalidate**: `loadUpdates()` dùng TTL 60s. Render tu cache truoc, chi fetch API neu cache qua han. Khi chuyen ngon ngu, goi `renderUpdates(allUpdates)` — 0 API calls.
-> 24. **Updates Incremental Rendering**: `renderUpdates()` dung `data-id` de chi append items moi vao DOM, khong re-render lai toan bo list.
+> 24. **Updates Language Toggle**: `renderUpdates()` xoa toan bo DOM va render lai tu cache khi chuyen ngon ngu, tu dong dung `titleVi`/`bodyVi` cho tieng Viet.
 
  ## Co Che Tu Dong Hien Co
 
  - `npm run sync-manifest`: Quet thay doi, dung Gemini tao ban tin update. Co fallback insert SQL truc tiep.
  - **Client-side Lang Toggle**: Su dung `allVideos` cache de re-render tuc thi, khong goi network.
  - **Updates Stale-While-Revalidate**: `loadUpdates()` kiem tra `lastUpdatesFetch` + `UPDATES_CACHE_TTL` (60s). Neu con moi, render tu cache va bo qua fetch. Khi append (Load More), dung `renderUpdates()` incremental.
- - **Updates Incremental Rendering**: `renderUpdates()` dung `data-id` de chi tao DOM cho items chua render. Dung `DocumentFragment` de batch append, giam reflow.
+ - **Updates Re-render on Language Toggle**: `renderUpdates()` xoa `ul.innerHTML` va render lai toan bo danh sach tu cache, dam bao hien thi dung ngon ngu khi chuyen EN/VI.
  - **Detail Endpoint**: `GET /api/videos/:id` tra ve 1 video voi day du explanation fields. Chi goi khi mo detail view.
  - **Client-side Filtering**: `renderVideoGrid()` co 2 mode: cache (khi da co toan bo data) va API fallback (khi cache chua day).
  - **Background Cache Preload**: `init()` goi `fetchVideos({ limit: 0 })` sau render lan dau de nap day `allVideos` (nhe nho stripped explanation).
