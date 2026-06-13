@@ -14,11 +14,7 @@
     "animate-svg": "node scripts/animate-svg.js",
     "check-animations": "node scripts/animate-svg.js --check",
     "build": "node scripts/build.mjs",
-    "vercel-build": "node scripts/build.mjs",
-    "serve": "firebase emulators:start",
-    "deploy": "firebase deploy --only hosting,functions",
-    "deploy:all": "firebase deploy",
-    "seed-firestore": "node scripts/seed-firestore.js"
+    "vercel-build": "node scripts/build.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
@@ -35,8 +31,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "firebase-admin": "^13.10.0",
-    "firebase-functions": "^7.2.5",
     "jsonwebtoken": "^9.0.3",
     "nodemailer": "^6.9.16",
     "openai": "^6.39.1"
