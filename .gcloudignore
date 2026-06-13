@@ -1,0 +1,17 @@
+# Ignored files for Google Cloud Function deployment
+.gcloudignore
+.git
+.gitignore
+node_modules/
+public/
+docs/
+.antigravitycli/
+.gemini/
+scratch/
+test_fetch.py
+check_structure.py
+downloader.py
+.firebaserc
+firebase.json
+*.db
+*.db.backup

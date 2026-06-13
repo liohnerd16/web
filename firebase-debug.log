@@ -1,0 +1,45 @@
+[debug] [2026-06-12T05:03:50.077Z] ----------------------------------------------------------------------
+[debug] [2026-06-12T05:03:50.081Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ADMIN\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\bin\firebase.js projects:create greennightzero-liohnerd16 --display-name Green Night Zero --token 1//0eTbeNXTngJBzCgYIARAAGA4SNwF-L9IrsMANCG8IPfkhV9V9JI9ncqiNWkinrRcCoSEjrVEMxsR0IzxThhs4zhdair0HPQFeGdU
+[debug] [2026-06-12T05:03:50.081Z] CLI Version:   15.20.0
+[debug] [2026-06-12T05:03:50.081Z] Platform:      win32
+[debug] [2026-06-12T05:03:50.082Z] Node Version:  v22.22.3
+[debug] [2026-06-12T05:03:50.082Z] Time:          Fri Jun 12 2026 12:03:50 GMT+0700 (Indochina Time)
+[debug] [2026-06-12T05:03:50.082Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-12T05:03:50.367Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-12T05:03:50.367Z] > authorizing via --token option
+[warn] !  Authenticating with `--token` is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started 
+[debug] [2026-06-12T05:03:50.374Z] No OAuth tokens found
+[debug] [2026-06-12T05:03:50.374Z] No OAuth tokens found
+[debug] [2026-06-12T05:03:50.375Z] > refreshing access token with scopes: []
+[debug] [2026-06-12T05:03:50.380Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-06-12T05:03:50.381Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-06-12T05:03:50.572Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-06-12T05:03:50.572Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-06-12T05:03:50.573Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2026-06-12T05:03:50.573Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"greennightzero-liohnerd16","name":"Green Night Zero"}
+[debug] [2026-06-12T05:03:51.723Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2026-06-12T05:03:51.723Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/create_project.global.7672373031864197871"}
+[debug] [2026-06-12T05:03:51.724Z] Checked if tokens are valid: true, expires at: 1781244229572
+[debug] [2026-06-12T05:03:51.724Z] Checked if tokens are valid: true, expires at: 1781244229572
+[debug] [2026-06-12T05:03:51.725Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.7672373031864197871 [none]
+[debug] [2026-06-12T05:03:52.639Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.7672373031864197871 200
+[debug] [2026-06-12T05:03:52.639Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.7672373031864197871 {"name":"operations/create_project.global.7672373031864197871"}
+[debug] [2026-06-12T05:03:53.141Z] [Project Creation Poller] Retrying task index 0
+[debug] [2026-06-12T05:03:53.141Z] Checked if tokens are valid: true, expires at: 1781244229572
+[debug] [2026-06-12T05:03:53.141Z] Checked if tokens are valid: true, expires at: 1781244229572
+[debug] [2026-06-12T05:03:53.141Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.7672373031864197871 [none]
+[debug] [2026-06-12T05:03:53.387Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.7672373031864197871 200
+[debug] [2026-06-12T05:03:53.388Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.7672373031864197871 {"name":"operations/create_project.global.7672373031864197871","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"136627363169","projectId":"greennightzero-liohnerd16","lifecycleState":"ACTIVE","name":"Green Night Zero","createTime":"2026-06-12T05:03:51.392Z"}}
+[debug] [2026-06-12T05:03:53.389Z] Checked if tokens are valid: true, expires at: 1781244229572
+[debug] [2026-06-12T05:03:53.389Z] Checked if tokens are valid: true, expires at: 1781244229572
+[debug] [2026-06-12T05:03:53.390Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/greennightzero-liohnerd16:addFirebase [none]
+[debug] [2026-06-12T05:03:54.719Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/greennightzero-liohnerd16:addFirebase 403
+[debug] [2026-06-12T05:03:54.720Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/greennightzero-liohnerd16:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-06-12T05:03:54.723Z] Request to https://firebase.googleapis.com/v1beta1/projects/greennightzero-liohnerd16:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2026-06-12T05:03:54.725Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/greennightzero-liohnerd16:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\ADMIN\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\ADMIN\AppData\Local\npm-cache\_npx\7750544ccf494d8b\node_modules\firebase-tools\lib\apiv2.js:333:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.

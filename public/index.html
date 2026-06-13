@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green Night Zero - GNZ</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  
+  <style>
+    :root {
+      --bg: #f4f6fb; --surface: #ffffff; --text: #1a1f2e; --muted: #5c6478; --primary: #2563eb;
+      --primary-hover: #1d4ed8; --border: #e2e8f0; --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --radius: 12px; --transition: 0.25s ease;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+    }
+    [data-theme="dark"] {
+      --bg: #0f172a; --surface: #1e293b; --text: #f1f5f9; --muted: #94a3b8; --primary: #60a5fa;
+      --primary-hover: #3b82f6; --border: #334155; --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+    body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .site-header { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.25rem; position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--surface) 95%, transparent); border-bottom: 1px solid var(--border); }
+    .brand { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; letter-spacing: 0.03em; text-decoration: none; color: var(--text); transition: opacity var(--transition); }
+    .brand:hover { opacity: 0.8; }
+    .brand .logo { height: 32px; width: auto; border-radius: 6px; }
+    .nav { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  </style>
+
+  <link rel="preload" href="/styles.min.css" as="style" />
+  <link rel="preload" href="/script.min.js" as="script" fetchpriority="low" />
+  <link rel="stylesheet" href="/styles.min.css" />
+  <link rel="icon" href="/api/proxy-image?url=https://drive.google.com/file/d/1euZo9XOEptXLcD1eebXjuQI2j9vQP4bf/view?usp=sharing" />
+  <!-- MathJax 3 for Auto-compiling LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        macros: {
+          section: ["\\section*{#1}", 1],
+          subsection: ["\\subsection*{#1}", 1]
+        }
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'figure'],
+        ignoreHtmlClass: 'mathjax_ignore'
+      }
+    };
+  </script>
+
+</head>
+<body>
+  <header class="site-header">
+    <a href="#" class="brand" data-jump="home">
+      <img src="/api/proxy-image?url=https://drive.google.com/file/d/1euZo9XOEptXLcD1eebXjuQI2j9vQP4bf/view?usp=sharing" alt="GNZ Logo" class="logo">
+      <span>Green Night Zero</span>
+    </a>
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <nav class="nav" id="mainNav">
+      <a href="#" data-page="home" data-i18n="nav_home">Home</a>
+      <a href="#" data-page="videos" data-i18n="nav_videos">Videos</a>
+      <a href="#" data-page="about" data-i18n="nav_about">About</a>
+      <a href="#" data-page="contact" data-i18n="nav_contact">Contact</a>
+      <a href="#" data-page="guide" data-i18n="nav_guide">Guide</a>
+      <a href="#" data-page="updates" data-i18n="nav_updates">Updates</a>
+      <a href="#" data-page="dashboard" id="navDashboard" style="display: none;" data-i18n="nav_dashboard">Dashboard</a>
+    </nav>
+    <div class="header-actions">
+      <div id="authActions">
+        <button type="button" id="loginBtn" class="btn ghost" data-i18n="login">Login</button>
+      </div>
+      <a href="https://zypage.com/greennight0" target="_blank" rel="noopener noreferrer" class="btn primary small lang-en">Donate</a>
+      <a href="https://zypage.com/greennight0" target="_blank" rel="noopener noreferrer" class="btn primary small lang-vi">Ủng hộ</a>
+      <div id="userActions" style="display: none;" class="dropdown">
+        <button type="button" id="userBtn" class="btn ghost">User</button>
+        <div class="dropdown-content">
+          <a href="#" id="logoutBtn" data-i18n="logout">Logout</a>
+        </div>
+      </div>
+      <button type="button" id="langToggle" class="btn ghost" aria-label="Language">EN</button>
+      <button type="button" id="themeToggle" class="btn ghost" aria-label="Theme">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <h1 data-i18n="hero_title">Science project videos, explained.</h1>
+        <p class="lead" data-i18n="hero_lead">Curated experiments with clear explanations and discussion.</p>
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+          <a href="#" class="btn primary" data-jump="videos" data-i18n="hero_cta">Browse videos</a>
+          <a href="https://zypage.com/greennight0" target="_blank" rel="noopener noreferrer" class="btn secondary">
+            <span class="lang-en">Donate & Support</span>
+            <span class="lang-vi">Ủng hộ dự án</span>
+          </a>
+        </div>
+      </div>
+      <h2 data-i18n="featured_title">Featured</h2>
+      <div id="featuredGrid" class="video-grid"></div>
+    </section>
+
+    <section id="page-videos" class="page">
+      <h1 data-i18n="videos_title">All videos</h1>
+      <div class="toolbar">
+        <input type="search" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="Search..." />
+        <select id="categoryFilter" aria-label="Category">
+          <option value="" data-i18n="filter_all">All categories</option>
+        </select>
+        <select id="topicFilter" aria-label="Topic">
+          <option value="" data-i18n="filter_all_topics">All topics</option>
+        </select>
+        <select id="sortFilter" aria-label="Sort Order">
+          <option value="newest" data-i18n="sort_newest">Newest first</option>
+          <option value="top-rated" data-i18n="sort_top_rated">Top Rated</option>
+          <option value="oldest" data-i18n="sort_oldest">Oldest first</option>
+          <option value="title" data-i18n="sort_title">Title A-Z</option>
+        </select>
+
+      </div>
+      <div id="videoGrid" class="video-grid"></div>
+      <div id="loadMoreContainer" class="load-more-container" style="display: none; text-align: center; margin-top: 2rem;">
+        <button type="button" id="loadMoreBtn" class="btn secondary" data-i18n="load_more">Load More</button>
+      </div>
+    </section>
+
+    <section id="page-about" class="page">
+      <h1 data-i18n="about_title">About</h1>
+      <p data-i18n="about_p1">
+        SciVid was created from a simple idea: turn experiment videos, handmade models, and science projects
+        into a learning space that feels clearer, warmer, and deeper.
+      </p>
+      <p data-i18n="about_p2">
+        The goal is to help viewers understand not only how to build a project, but why it works.
+      </p>
+      <p data-i18n="about_p3">
+        The platform uses HTML, CSS, JavaScript, Node.js, Express, SQLite/LibSQL, MathJax, and AI tools such as Gemini.
+      </p>
+      <p data-i18n="about_p4">
+        Thank you for visiting, reading, watching, and sharing feedback with SciVid.
+      </p>
+      <p data-i18n="about_p5">
+        If something is incomplete, unclear, or not working as expected, I am sorry. SciVid is still growing and improving.
+      </p>
+      <p data-i18n="about_p6">
+        I hope Green Night Zero can become a small corner of inspiration, where ordinary materials, curious questions,
+        and modern technology meet to create vivid science lessons.
+      </p>
+      <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+        <p><strong data-i18n="about_donate">Support the project at:</strong></p>
+        <a href="https://zypage.com/greennight0" target="_blank" rel="noopener noreferrer" class="btn secondary small">
+          <span class="lang-en">Donate & Support</span>
+          <span class="lang-vi">Ủng hộ dự án</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="page-contact" class="page">
+      <h1 data-i18n="contact_title">Contact</h1>
+      <p><span data-i18n="contact_email_label">Email:</span> <a href="mailto:greennight0@protonmail.com">greennight0@protonmail.com</a></p>
+      <div style="margin: 1.5rem 0;">
+        <p style="margin-bottom: 0.5rem;"><strong data-i18n="donate_label">Donate:</strong></p>
+        <a href="https://zypage.com/greennight0" target="_blank" rel="noopener noreferrer" class="btn secondary small">
+          <span class="lang-en">Donate & Support</span>
+          <span class="lang-vi">Ủng hộ dự án</span>
+        </a>
+      </div>
+      <div class="social-links">
+        <p class="muted" data-i18n="contact_social">Find me on social media:</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+          <a href="https://bsky.app/profile/greennight0.bsky.social" target="_blank" rel="noopener noreferrer" class="btn ghost small">Bluesky</a>
+          <a href="https://www.reddit.com/user/greennight0/" target="_blank" rel="noopener noreferrer" class="btn ghost small">Reddit</a>
+          <a href="https://meta.stackexchange.com/users/1909409/zero?tab=profile" target="_blank" rel="noopener noreferrer" class="btn ghost small">StackExchange</a>
+          <a href="https://www.quora.com/profile/Zero-4888" target="_blank" rel="noopener noreferrer" class="btn ghost small">Quora</a>
+        </div>
+      </div>
+
+      <h2 data-i18n="feedback_title">Send feedback</h2>
+      <form id="feedbackForm" class="form card">
+        <label><span data-i18n="fb_name">Name</span><input name="name" required maxlength="120" /></label>
+        <label><span data-i18n="fb_email">Email</span><input name="email" type="email" required /></label>
+        <label><span data-i18n="fb_message">Message</span><textarea name="message" required maxlength="5000"></textarea></label>
+        <button type="submit" class="btn primary" data-i18n="fb_submit">Send</button>
+      </form>
+    </section>
+
+    <section id="page-updates" class="page">
+      <h1 data-i18n="updates_title">News & updates</h1>
+      <ul id="updatesList" class="updates-list"></ul>
+    </section>
+
+    <section id="page-guide" class="page">
+      <h1 data-i18n="guide_title">How-to Guide / Hướng dẫn</h1>
+
+      <div class="guide-section">
+        <h2 data-i18n="guide_video_title">YouTube Video Links</h2>
+        <img src="/assets/images/ui/guide-youtube.svg" alt="YouTube Guide" class="guide-image" />
+        <div class="lang-en">
+          <ol>
+            <li>Open your video on <a href="https://youtube.com" target="_blank">YouTube</a>.</li>
+            <li>Click <strong>Share</strong> → <strong>Embed</strong>.</li>
+            <li>Copy the <code>src</code> URL from the embed <code>&lt;iframe&gt;</code>:</li>
+          </ol>
+          <pre><code>https://www.youtube.com/embed/VIDEO_ID</code></pre>
+          <ol start="4">
+            <li>Paste this URL into the <strong>Video URL</strong> field when submitting a project via the Dashboard.</li>
+          </ol>
+        </div>
+        <div class="lang-vi" style="display:none">
+          <ol>
+            <li>Mở video của bạn trên <a href="https://youtube.com" target="_blank">YouTube</a>.</li>
+            <li>Nhấn <strong>Chia sẻ</strong> → <strong>Nhúng</strong>.</li>
+            <li>Sao chép đường dẫn <code>src</code> từ thẻ <code>&lt;iframe&gt;</code>:</li>
+          </ol>
+          <pre><code>https://www.youtube.com/embed/VIDEO_ID</code></pre>
+          <ol start="4">
+            <li>Dán URL này vào ô <strong>Video URL</strong> khi gửi dự án qua Dashboard.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h2 data-i18n="guide_image_title">Google Drive Image Links</h2>
+        <img src="/assets/images/ui/guide-drive.svg" alt="Google Drive Guide" class="guide-image" />
+        <div class="lang-en">
+          <ol>
+            <li>Upload your image to <a href="https://drive.google.com" target="_blank">Google Drive</a>.</li>
+            <li>Right-click the file → <strong>Share</strong> → <strong>General access</strong> → <strong>Anyone with the link</strong>.</li>
+            <li>Copy the share link. It looks like one of these:</li>
+          </ol>
+          <pre><code>https://drive.google.com/file/d/FILE_ID/view
+https://drive.google.com/uc?export=view&id=FILE_ID</code></pre>
+          <ol start="4">
+            <li>Paste the link directly into the <strong>image URL input</strong> in the Edit modal.</li>
+            <li>The system will automatically proxy it so the image displays correctly.</li>
+          </ol>
+        </div>
+        <div class="lang-vi" style="display:none">
+          <ol>
+            <li>Tải ảnh lên <a href="https://drive.google.com" target="_blank">Google Drive</a>.</li>
+            <li>Nhấp chuột phải vào file → <strong>Chia sẻ</strong> → <strong>Quyền truy cập</strong> → <strong>Bất kỳ ai có đường dẫn</strong>.</li>
+            <li>Sao chép link chia sẻ. Đường dẫn sẽ có một trong các dạng sau:</li>
+          </ol>
+          <pre><code>https://drive.google.com/file/d/FILE_ID/view
+https://drive.google.com/uc?export=view&id=FILE_ID</code></pre>
+          <ol start="4">
+            <li>Dán link trực tiếp vào ô <strong>nhập URL ảnh</strong> trong Edit modal.</li>
+            <li>Hệ thống sẽ tự động proxy để ảnh hiển thị đúng.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h2 data-i18n="guide_latex_title">Adding Images in LaTeX</h2>
+        <img src="/assets/images/ui/guide-latex.svg" alt="LaTeX Guide" class="guide-image" />
+        <div class="lang-en">
+          <p>When writing the scientific explanation (LaTeX), embed images using:</p>
+          <pre><code>\includegraphics[Label for accessibility]{Your-Image-URL}</code></pre>
+          <p>Examples:</p>
+          <pre><code>\includegraphics[Biogas System Diagram]{/assets/images/projects/biogas-anaerobic-digestion-system.svg}
+\includegraphics[Self-Inflating Balloon GIF]{https://res.cloudinary.com/.../image.gif}
+\includegraphics[Circuit Schematic]{https://drive.google.com/uc?export=download&id=123abc}</code></pre>
+          <ul>
+            <li>The <strong>[label]</strong> is shown when the image cannot load.</li>
+            <li>Supported sources: local SVGs (<code>/assets/...</code>), external URLs, Google Drive links.</li>
+          </ul>
+        </div>
+        <div class="lang-vi" style="display:none">
+          <p>Khi viết bài giải thích khoa học (LaTeX), nhúng ảnh theo cú pháp:</p>
+          <pre><code>\includegraphics[Nhãn cho người khiếm thị]{Đường-dẫn-ảnh}</code></pre>
+          <p>Ví dụ:</p>
+          <pre><code>\includegraphics[Sơ đồ hệ thống Biogas]{/assets/images/projects/biogas-anaerobic-digestion-system.svg}
+\includegraphics[Ảnh động Bong bóng tự bơm]{https://res.cloudinary.com/.../image.gif}
+\includegraphics[Sơ đồ mạch điện]{https://drive.google.com/uc?export=download&id=123abc}</code></pre>
+          <ul>
+            <li><strong>[nhãn]</strong> được hiển thị khi ảnh không tải được.</li>
+            <li>Nguồn ảnh hỗ trợ: SVG local (<code>/assets/...</code>), URL ngoài, link Google Drive.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h2 data-i18n="latex_guide_title">📖 LaTeX Command Reference</h2>
+        <div class="lang-en">
+          <p><strong>Basic commands for your LaTeX explanation:</strong></p>
+          <table class="guide-table">
+            <tr><td><code>\section*{Title}</code></td><td>Main section heading</td></tr>
+            <tr><td><code>\subsection*{Title}</code></td><td>Subsection heading</td></tr>
+            <tr><td><code>\textbf{bold text}</code></td><td>Bold text</td></tr>
+            <tr><td><code>\textit{italic text}</code></td><td>Italic text</td></tr>
+            <tr><td><code>\includegraphics[Label]{/assets/...svg}</code></td><td>Embed an image or diagram</td></tr>
+            <tr><td><code>\begin{itemize}...\item...\end{itemize}</code></td><td>Bullet list</td></tr>
+            <tr><td><code>\begin{enumerate}...\item...\end{enumerate}</code></td><td>Numbered list</td></tr>
+            <tr><td><code>\begin{center}...\end{center}</code></td><td>Center-aligned content</td></tr>
+            <tr><td><code>\begin{tabular}{...}...\end{tabular}</code></td><td>Table</td></tr>
+            <tr><td><code>$...$</code></td><td>Inline math formula</td></tr>
+            <tr><td><code>$$...$$</code> or <code>\[...\]</code></td><td>Display math formula</td></tr>
+          </table>
+          <p class="guide-tip"><strong>Tip:</strong> You only need the content — no <code>\begin{document}</code> or preamble. The system adds MathJax automatically.</p>
+        </div>
+        <div class="lang-vi" style="display:none">
+          <p><strong>Các lệnh cơ bản cho giải thích LaTeX của bạn:</strong></p>
+          <table class="guide-table">
+            <tr><td><code>\section*{Tiêu đề}</code></td><td>Tiêu đề chính</td></tr>
+            <tr><td><code>\subsection*{Tiêu đề}</code></td><td>Tiêu đề phụ</td></tr>
+            <tr><td><code>\textbf{chữ đậm}</code></td><td>In đậm</td></tr>
+            <tr><td><code>\textit{chữ nghiêng}</code></td><td>In nghiêng</td></tr>
+            <tr><td><code>\includegraphics[Chú thích]{/assets/...svg}</code></td><td>Chèn ảnh hoặc sơ đồ</td></tr>
+            <tr><td><code>\begin{itemize}...\item...\end{itemize}</code></td><td>Danh sách gạch đầu dòng</td></tr>
+            <tr><td><code>\begin{enumerate}...\item...\end{enumerate}</code></td><td>Danh sách đánh số</td></tr>
+            <tr><td><code>\begin{center}...\end{center}</code></td><td>Căn giữa nội dung</td></tr>
+            <tr><td><code>\begin{tabular}{...}...\end{tabular}</code></td><td>Bảng biểu</td></tr>
+            <tr><td><code>$...$</code></td><td>Công thức toán trong dòng</td></tr>
+            <tr><td><code>$$...$$</code> hoặc <code>\[...\]</code></td><td>Công thức toán riêng dòng</td></tr>
+          </table>
+          <p class="guide-tip"><strong>Mẹo:</strong> Bạn chỉ cần viết nội dung — không cần <code>\begin{document}</code> hay phần khai báo. Hệ thống tự động xử lý MathJax.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-dashboard" class="page">
+      <h1 data-i18n="dashboard_title">User Dashboard</h1>
+      <div class="dashboard-grid">
+        <div class="card">
+          <h2 data-i18n="profile_title">Profile</h2>
+          <div id="userProfile"></div>
+        </div>
+        <div class="card">
+          <h2 data-i18n="notifications_title">Notifications</h2>
+          <div id="notificationList" class="notification-list"></div>
+        </div>
+        
+        <!-- Account Security -->
+        <div class="card">
+          <h2 data-i18n="change_password_title">Change Password</h2>
+          <form id="changePasswordForm" class="form">
+            <label>
+              <span data-i18n="current_password">Current Password</span>
+              <div class="password-wrapper">
+                <input type="password" name="currentPassword" required />
+                <button type="button" class="password-toggle" aria-label="Show password">👁️</button>
+              </div>
+            </label>
+            <label>
+              <span data-i18n="new_password">New Password</span>
+              <div class="password-wrapper">
+                <input type="password" name="newPassword" required />
+                <button type="button" class="password-toggle" aria-label="Show password">👁️</button>
+              </div>
+            </label>
+            <button type="submit" class="btn primary" data-i18n="change_password_submit">Update Password</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="change_email_title">Change Email</h2>
+          <form id="changeEmailForm" class="form">
+            <label>
+              <span data-i18n="new_email">New Email</span>
+              <input type="email" name="newEmail" required />
+            </label>
+            <label>
+              <span data-i18n="auth_password">Password</span>
+              <div class="password-wrapper">
+                <input type="password" name="password" required />
+                <button type="button" class="password-toggle" aria-label="Show password">👁️</button>
+              </div>
+            </label>
+            <button type="submit" class="btn primary" data-i18n="change_email_submit">Update Email</button>
+          </form>
+        </div>
+
+        <div class="card wide">
+          <h2 data-i18n="ai_add_title">Submit Science Project</h2>
+          <div class="form-mode-toggle">
+            <button type="button" id="modeAiBtn" class="btn small active" data-i18n="mode_ai">AI Auto-Complete</button>
+            <button type="button" id="modeManualBtn" class="btn small" data-i18n="mode_manual">Direct Post</button>
+          </div>
+          
+          <form id="aiAddForm" class="form">
+            <input type="hidden" name="submissionMode" id="submissionMode" value="ai" />
+            
+            <label id="videoUrlLabel">
+              <span data-i18n="ai_video_url">Project or Video URL</span>
+              <input type="url" name="videoUrl" required placeholder="https://..." />
+            </label>
+
+            <!-- Manual Fields (Hidden by default) -->
+            <div id="manualFields" style="display: none;">
+              <div class="form-row">
+                <label class="lang-en-only">
+                  <span data-i18n="auth_title">Title</span>
+                  <input type="text" name="title" />
+                </label>
+                <label class="lang-vi-only">
+                  <span data-i18n="auth_title">Title</span>
+                  <input type="text" name="titleVi" />
+                </label>
+                <label>
+                  <span data-i18n="filter_category">Category</span>
+                  <select name="category" id="manualCategory">
+                    <option value=""></option>
+                  </select>
+                </label>
+              </div>
+              <div class="form-row">
+                <label class="lang-en-only">
+                  <span data-i18n="topic_label">Topic</span>
+                  <select name="topic" id="manualTopic">
+                    <option value=""></option>
+                  </select>
+                </label>
+                <label class="lang-vi-only">
+                  <span data-i18n="topic_label">Topic</span>
+                  <select name="topicVi" id="manualTopicVi">
+                    <option value=""></option>
+                  </select>
+                </label>
+              </div>
+              <div class="form-row">
+                <label class="lang-en-only">
+                  <span data-i18n="auth_desc">Description</span>
+                  <textarea name="description"></textarea>
+                </label>
+                <label class="lang-vi-only">
+                  <span data-i18n="auth_desc">Description</span>
+                  <textarea name="descriptionVi"></textarea>
+                </label>
+              </div>
+              <div class="form-row">
+                <label class="lang-en-only">
+                  <span data-i18n="ai_tex_optional">LaTeX Content</span>
+                  <textarea name="texContent" placeholder="\section*{...}"></textarea>
+                </label>
+                <label class="lang-vi-only">
+                  <span data-i18n="ai_tex_optional">LaTeX Content</span>
+                  <textarea name="texContentVi" placeholder="\section*{...}"></textarea>
+                </label>
+              </div>
+            </div>
+            <label>
+              <span data-i18n="ai_affiliate_links">Recommended Tools & Affiliate Links</span>
+              <div id="affiliateRowContainer" class="affiliate-row-container">
+                <!-- Rows added dynamically via JS -->
+              </div>
+              <button type="button" id="addAffiliateRowBtn" class="btn small ghost" style="margin-top: 0.5rem;" data-i18n="add_link">+ Add Link</button>
+              <input type="hidden" name="affiliateLinksRaw" id="affiliateLinksRaw" />
+            </label>
+            </label>
+            <div class="form-row">
+              <label>
+                <span data-i18n="ai_series_title">Series Title (Optional)</span>
+                <input type="text" name="seriesTitle" />
+              </label>
+              <label>
+                <span data-i18n="ai_part_number">Part Number (Optional)</span>
+                <input type="number" name="partNumber" />
+              </label>
+            </div>
+            <button type="submit" class="btn primary" id="submitBtn" data-i18n="ai_submit">Submit with AI</button>
+          </form>
+        </div>
+
+        <div class="card wide">
+          <h2 data-i18n="manage_heading">Submitted Projects</h2>
+          <div id="manageProjectList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-detail" class="page">
+      <div class="detail-container">
+        <div class="detail-left">
+          <button type="button" class="btn ghost back-btn" id="backBtn" data-i18n="back">← Back</button>
+          
+          <!-- Series Navigation -->
+          <div id="seriesNav" class="series-nav"></div>
+
+          <div id="videoContent"></div>
+
+
+          <!-- Affiliate Section -->
+          <section class="affiliate-section card">
+            <div class="sponsored-tag" data-i18n="sponsored">Sponsored</div>
+            <h3 data-i18n="recommended_products">Recommended Tools & Kits</h3>
+            <div id="affiliateList" class="affiliate-list"></div>
+          </section>
+
+          <section class="comments">
+            <h2 data-i18n="comments_title">Comments</h2>
+            <ul id="commentList" class="comment-list"></ul>
+            <form id="commentForm" class="form card">
+              <input type="hidden" name="videoId" id="commentVideoId" />
+              <label><span data-i18n="c_name">Your name</span><input name="username" required maxlength="80" /></label>
+              <label><span data-i18n="c_comment">Your comment</span><textarea name="content" required maxlength="2000"></textarea></label>
+              <button type="submit" class="btn primary" data-i18n="c_submit">Post comment</button>
+            </form>
+          </section>
+        </div>
+        <aside class="detail-right" id="explanationSidebar">
+          <div class="explanation-content">
+            <h2 data-i18n="explain_title">Explanation</h2>
+            <div id="markdownBody" class="markdown-body"></div>
+            <h2 data-i18n="refs_title">References</h2>
+            <ul id="detailRefs" class="refs"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="loadingOverlay" class="loading-overlay" style="display:none;">
+    <div class="spinner"></div>
+    <p id="loadingText" data-i18n="loading">Loading…</p>
+  </div>
+
+  <footer class="site-footer">
+    <span data-i18n="footer_copy">© SciVid</span>
+  </footer>
+
+  <!-- Auth Modals -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content card">
+      <h2 data-i18n="login_title">Login</h2>
+      <form id="loginForm" class="form">
+        <label><span data-i18n="auth_email">Email</span><input type="email" name="email" required /></label>
+        <label><span data-i18n="auth_password">Password</span>
+          <div class="password-wrapper">
+            <input type="password" name="password" required />
+            <button type="button" class="password-toggle" aria-label="Show password">👁️</button>
+          </div>
+        </label>
+        <div class="form-footer">
+          <a href="#" id="toForgot" data-i18n="forgot_link">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn primary" data-i18n="login_submit">Login</button>
+        <p><span data-i18n="no_account">Don't have an account?</span> <a href="#" id="toRegister" data-i18n="register_link">Register</a></p>
+      </form>
+
+      <!-- Forgot Password View -->
+      <form id="forgotForm" class="form" style="display: none;">
+        <h2 data-i18n="forgot_password_title">Forgot Password</h2>
+        <p class="muted" data-i18n="forgot_instruction">Enter your email to receive a reset token.</p>
+        <label><span data-i18n="auth_email">Email</span><input type="email" name="email" required /></label>
+        <button type="submit" class="btn primary" data-i18n="forgot_submit">Request Token</button>
+        <p><a href="#" class="to-login-view" data-i18n="back_to_login">Back to Login</a></p>
+      </form>
+
+      <!-- Reset Password View -->
+      <form id="resetForm" class="form" style="display: none;">
+        <h2 data-i18n="reset_password_title">Reset Password</h2>
+        <label><span data-i18n="reset_token">Reset Token</span><input type="text" name="token" required /></label>
+        <label><span data-i18n="new_password">New Password</span>
+          <div class="password-wrapper">
+            <input type="password" name="newPassword" required />
+            <button type="button" class="password-toggle" aria-label="Show password">👁️</button>
+          </div>
+        </label>
+        <button type="submit" class="btn primary" data-i18n="reset_submit">Reset Password</button>
+        <p><a href="#" class="to-login-view" data-i18n="back_to_login">Back to Login</a></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="registerModal" class="modal">
+    <div class="modal-content card">
+      <h2 data-i18n="register_title">Register</h2>
+      <form id="registerForm" class="form">
+        <label><span data-i18n="auth_username">Username</span><input type="text" name="username" required /></label>
+        <label><span data-i18n="auth_email">Email</span><input type="email" name="email" required /></label>
+        <label><span data-i18n="auth_password">Password</span>
+          <div class="password-wrapper">
+            <input type="password" name="password" required />
+            <button type="button" class="password-toggle" aria-label="Show password">👁️</button>
+          </div>
+        </label>
+        <button type="submit" class="btn primary" data-i18n="register_submit">Register</button>
+        <p><span data-i18n="have_account">Already have an account?</span> <a href="#" id="toLogin" data-i18n="login_link">Login</a></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content card wide-modal">
+      <div class="edit-modal-header">
+        <h2 data-i18n="edit_project_title">Edit Project</h2>
+        <span class="edit-lang-badge" id="editLangBadge">EN</span>
+      </div>
+      <form id="editForm" class="form">
+        <input type="hidden" name="editVideoId" />
+
+        <!-- Title (bilingual) -->
+        <label>
+          <span data-i18n="auth_title">Title</span>
+          <input type="text" id="editTitle" class="bilingual-field" data-en="" data-vi="" required />
+          <input type="hidden" name="title" id="editTitleEn" />
+          <input type="hidden" name="titleVi" id="editTitleVi" />
+        </label>
+
+        <!-- Description (bilingual) -->
+        <label>
+          <span data-i18n="auth_desc">Description</span>
+          <textarea id="editDescription" class="bilingual-field" data-en="" data-vi="" required></textarea>
+          <input type="hidden" name="description" id="editDescEn" />
+          <input type="hidden" name="descriptionVi" id="editDescVi" />
+        </label>
+
+        <!-- Category (bilingual) + Topic (bilingual) + Part Number (monolingual) -->
+        <div class="form-row">
+          <label>
+            <span data-i18n="filter_category">Category</span>
+            <input type="text" id="editCategory" class="bilingual-field" data-en="" data-vi="" required />
+            <input type="hidden" name="category" id="editCatEn" />
+            <input type="hidden" name="categoryVi" id="editCatVi" />
+          </label>
+          <label>
+            <span data-i18n="topic_label">Topic</span>
+            <input type="text" id="editTopic" class="bilingual-field" data-en="" data-vi="" />
+            <input type="hidden" name="topic" id="editTopicEn" />
+            <input type="hidden" name="topicVi" id="editTopicVi" />
+          </label>
+        </div>
+
+        <!-- Series Title (bilingual) + Part Number (monolingual) -->
+        <div class="form-row">
+          <label>
+            <span data-i18n="ai_series_title">Series Title</span>
+            <input type="text" id="editSeriesTitle" class="bilingual-field" data-en="" data-vi="" />
+            <input type="hidden" name="seriesTitle" id="editSeriesEn" />
+            <input type="hidden" name="seriesTitleVi" id="editSeriesVi" />
+          </label>
+          <label>
+            <span data-i18n="ai_part_number">Part Number</span>
+            <input type="number" id="editPartNumber" name="partNumber" />
+          </label>
+        </div>
+
+        <!-- LaTeX explanation (bilingual) -->
+        <label>
+          <span data-i18n="ai_tex_optional">LaTeX Content</span>
+          <textarea id="editExplanation" class="bilingual-field tex-edit-area" data-en="" data-vi=""></textarea>
+          <input type="hidden" name="explanation" id="editTexEn" />
+          <input type="hidden" name="explanationVi" id="editTexVi" />
+        </label>
+
+        <!-- Affiliate Links -->
+        <label>
+          <span data-i18n="ai_affiliate_links">Recommended Tools & Affiliate Links</span>
+          <div id="editAffiliateRowContainer" class="affiliate-row-container">
+            <!-- Rows added dynamically via JS -->
+          </div>
+          <button type="button" id="editAddAffiliateRowBtn" class="btn small ghost" style="margin-top: 0.5rem;">+ Add Link</button>
+          <input type="hidden" name="affiliateLinksRaw" id="editAffiliateLinksRaw" />
+        </label>
+
+        <!-- Image management -->
+        <div class="image-management">
+          <label data-i18n="edit_images_label">Images / Diagrams</label>
+          <div id="editImageList" class="gallery"></div>
+          <div class="image-url-row">
+            <input type="url" id="editImageUrlInput" placeholder="https://... or /assets/images/projects/...svg" data-i18n-placeholder="edit_image_url_placeholder" />
+            <button type="button" class="btn secondary" id="addImageUrlBtn" data-i18n="add_image_url">Add URL</button>
+          </div>
+          <input type="hidden" name="imageUrls" id="editImageUrls" value="[]" />
+        </div>
+
+        <div id="editPreviewArea" class="edit-preview-container card" style="display: none;">
+          <h3 data-i18n="preview">Preview</h3>
+          <div id="editPreviewContent" class="markdown-body"></div>
+        </div>
+
+        <div class="form-footer">
+          <button type="button" class="btn ghost" id="cancelEditBtn" data-i18n="cancel">Cancel</button>
+          <button type="button" class="btn secondary" id="previewEditBtn" data-i18n="preview">Preview</button>
+          <button type="submit" class="btn primary" data-i18n="save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script defer src="/script.min.js"></script>
+</body>
+</html>

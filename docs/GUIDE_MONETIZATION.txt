@@ -1,0 +1,49 @@
+# GUIDE TO MONETIZATION / HƯỚNG DẪN KIẾM TIỀN
+## (ADS & MULTI-PLATFORM AFFILIATE / QUẢNG CÁO & TIẾP THỊ ĐA NỀN TẢNG)
+
+Your website supports a high-end affiliate system allowing multiple products and multiple links per product.
+Website của bạn hỗ trợ hệ thống tiếp thị liên kết cao cấp, cho phép hiển thị nhiều sản phẩm và nhiều link sàn cho mỗi sản phẩm.
+
+---
+
+## 1. Advanced Affiliate System / Hệ thống Tiếp thị Cao cấp
+Each video can feature multiple recommended tools, and each tool can have links to different platforms (Shopee, Lazada, Amazon, etc.).
+
+### How to add links / Cách thêm link:
+- **Dashboard**: In both AI Auto-Complete and Direct Post modes, enter links in the `Affiliate Links` field using `Name | URL` format (one per line).
+- **Direct DB**: Update the `affiliateLinks` column in `server/database/db.js` using JSON format.
+
+---
+
+## 2. Advertisements with Vercel / Quảng cáo trên Vercel
+Vercel is very fast, making it ideal for modern ad providers.
+
+### Step 1: Google AdSense or Monetag
+1. Sign up at your preferred ad network.
+2. Add your Vercel URL (e.g., `https://your-app.vercel.app`).
+3. Copy the **Script Code** or **Meta Tag**.
+
+### Step 2: Implementation / Cài đặt
+- **Method A (Easiest)**: Paste the script directly into the `<head>` of `public/index.html`.
+- **Method B (Better for Performance)**: Add the script via `public/script.js` inside the `init()` function:
+  ```javascript
+  const adScript = document.createElement('script');
+  adScript.src = 'https://[AD_URL]';
+  adScript.async = true;
+  document.head.appendChild(adScript);
+  ```
+
+---
+
+## 3. Strategic Placements / Các vị trí chiến lược
+- **Video Detail Page**: The area under the video (Affiliate Section) is already optimized for high conversion.
+- **Explanation Sidebar**: Perfect for "Contextual Ads" (links to relevant scientific equipment or books).
+- **Global Banner**: Above the site header or at the very bottom of the page.
+
+---
+
+## 4. Next Session Goals / Mục tiêu phiên làm việc tới
+1. **Real Links**: Replace sample affiliate links with your actual tracking IDs.
+2. **Ad Injection**: Verify your site on an ad platform and inject the code.
+3. **Analytics**: (Optional) Add Google Analytics to track where your money is coming from.
+

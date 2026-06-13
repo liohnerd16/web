@@ -1,0 +1,69 @@
+# ULTIMATE DEPLOYMENT GUIDE / HƯỚNG DẪN TRIỂN KHAI TOÀN TẬP
+## (Vercel CLI + Turso — 100% FREE / MIỄN PHÍ 100%)
+
+Follow this sequence to launch your science website on the internet for free using Vercel.
+Làm theo trình tự này để đưa website khoa học của bạn lên mạng miễn phí bằng Vercel.
+
+---
+
+### PHASE 1: Preparation / GIAI ĐOẠN 1: Chuẩn bị
+1. **Turso (Cloud Database)**:
+   - Sign up at [Turso.tech](https://turso.tech).
+   - Create a database (e.g., `scivid-db`).
+   - Copy the **TURSO_DATABASE_URL** (starts with `libsql://`) and **TURSO_AUTH_TOKEN**.
+2. **Google Gemini API**:
+   - Get your API Key from [Google AI Studio](https://aistudio.google.com/).
+3. **Vercel Account**:
+   - Sign up at [Vercel.com](https://vercel.com).
+
+---
+
+### PHASE 2: Vercel CLI (Deployment) / GIAI ĐOẠN 2: Triển khai qua CLI
+We use Vercel CLI to push code directly from your computer without needing GitHub.
+Chúng ta dùng Vercel CLI để đẩy mã nguồn trực tiếp từ máy tính mà không cần GitHub.
+
+1. **Install Vercel CLI / Cài đặt CLI**:
+   ```powershell
+   npm install -g vercel
+   ```
+2. **Login / Đăng nhập**:
+   ```powershell
+   vercel login
+   ```
+3. **Deploy (First time) / Triển khai (Lần đầu)**:
+   ```powershell
+   vercel
+   ```
+   - Press **Enter** for all default questions.
+   - Once finished, you will get a Preview URL.
+
+---
+
+### PHASE 3: Environment Variables / GIAI ĐOẠN 3: Cấu hình Biến môi trường
+Your site needs the "keys" to work with the database and AI.
+Website cần các "chìa khóa" để kết nối database và AI.
+
+1. **Add keys via CLI / Thêm khóa qua CLI**:
+   ```powershell
+   vercel env add TURSO_DATABASE_URL
+   vercel env add TURSO_AUTH_TOKEN
+   vercel env add GEMINI_API_KEY
+   ```
+2. **Push to Production / Đẩy lên bản chính thức**:
+   ```powershell
+   vercel --prod
+   ```
+
+---
+
+### STEP 4: Verification / BƯỚC 4: Kiểm tra
+Your website is now LIVE at the URL provided (e.g., `science-video-aggregator.vercel.app`).
+Website của bạn đã hoạt động tại đường dẫn được cung cấp!
+
+---
+
+### MAINTENANCE / BẢO TRÌ
+- **Update Code**: Just run `vercel --prod` again after saving your changes.
+  **Cập nhật**: Chỉ cần chạy lại lệnh `vercel --prod` sau khi bạn sửa code.
+- **Secrets**: Manage keys in the Vercel Dashboard under **Project Settings > Environment Variables**.
+  **Bảo mật**: Quản lý các mã khóa trong mục Environment Variables trên web Vercel.

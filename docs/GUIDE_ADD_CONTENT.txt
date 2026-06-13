@@ -1,0 +1,85 @@
+# GUIDE TO ADDING CONTENT / HƯỚNG DẪN THÊM NỘI DUNG
+## (LaTeX System & Series Feature / Hệ thống LaTeX & Tính năng Chuỗi video)
+
+This document guides you on how to add new videos, scientific explanations using LaTeX, and how to group them into a series.
+Tài liệu này hướng dẫn bạn cách thêm video mới, các bài giải thích khoa học sử dụng LaTeX và cách nhóm chúng thành một chuỗi (series).
+
+---
+
+## 1. Prepare Video Content / Chuẩn bị nội dung video
+- **Title, Description, Category / Tiêu đề, Mô tả, Danh mục**: Standard info / Thông tin cơ bản.
+- **Embed URL / Link nhúng**: Use YouTube Embed URL or a local path.
+- **Explanation / Giải thích**: Create bilingual LaTeX content in `server/database/latex-content.json`.
+- **Images**: Paste image URLs (including Google Drive URLs — auto-proxied) directly in Edit modal or use local SVGs in `public/assets/images/projects/`. See GUIDE_ASSETS_MANAGEMENT.txt.
+- **Series (Optional)**: Group parts by giving them the same **Series Title**.
+
+---
+
+## 2. Writing the Explanation (LaTeX in JSON)
+LaTeX is used for professional rendering via MathJax 3. Content is stored in `server/database/latex-content.json` keyed by video title.
+
+### Basic Structure
+- `\section*{Main Title}`
+- `\subsection*{Sub Heading}`
+- Images: `\includegraphics[Label]{/assets/images/projects/my-diagram.svg}` — also supports Google Drive URLs (auto-proxied)
+
+### Image Behavior on AI Submit
+When submitting via AI Auto-Complete, any inline base64 SVG images (`\includegraphics{data:image/svg+xml;base64,...}`) are automatically stripped and replaced with:
+- EN: `\textit{[Replace with your own diagram — use Edit to add images.]}`
+- VI: `\textit{[Thay thế bằng hình ảnh của bạn — dùng Chỉnh sửa để tải lên.]}`
+
+After submission, a suggest dialog encourages the user to add real illustrations via the Edit modal.
+
+---
+
+## 3. Registering in the System / Khai báo vào hệ thống
+
+### Method A: Dashboard (Easiest) / Cách A: Qua Dashboard
+1. Go to your live website dashboard.
+2. Use **AI Auto-Complete** or **Direct Post**.
+3. **Bilingual Fields**: "Direct Post" includes dedicated fields for both English and Vietnamese. If you only fill one side, AI translates the missing fields automatically.
+4. **Suggest dialog**: After AI submit, a dialog offers to add images.
+5. **Affiliate Links**: The `Affiliate Links` field is available in **both** AI Auto-Complete and Direct Post modes. Format: `Product Name | URL` (one per line).
+
+### Method B: Code (Direct DB) / Cách B: Qua mã nguồn
+1. Open `server/database/db.js`.
+2. Add entry to `latex-content.json` with bilingual LaTeX content (key = video title).
+3. Update the `samples` array with **20 columns** (maps to table columns by index):
+   ```javascript
+   [
+     "English Title",                                         // 0  title
+     "English Description",                                   // 1  description
+     "https://www.youtube.com/embed/VIDEO_ID",                // 2  embedUrl
+     "Category",                                              // 3  category
+     "project-name-en.tex",                                   // 4  explanation (filename)
+     JSON.stringify([]),                                      // 5  imageUrls
+     JSON.stringify([]),                                      // 6  referenceLinks
+     JSON.stringify([{name:"Tool",links:[{label:"Shopee",url:"..."}]}]),// 7 affiliateLinks
+     null,  // seriesTitle (8)
+     null,  // partNumber (9)
+     "Vietnamese Title",                                      // 10 titleVi
+     "Vietnamese Description",                                // 11 descriptionVi
+     "project-name.tex",                                      // 12 explanationVi (filename)
+     null,  // topic (13)
+     null,  // topicVi (14)
+     null,  // categoryVi (15) — auto-filled from CAT_VI_MAP
+     null,  // seriesTitleVi (16)
+     "Raw LaTeX EN content...",                               // 17 explanationRaw
+     "Raw LaTeX VI content...",                               // 18 explanationViRaw
+     "submittedByUserId"                                      // 19 submittedBy
+   ]
+   ```
+4. Deploy: `npm run sync-manifest` then `vercel --prod`.
+
+---
+
+## 4. AI Auto-Translation / Tự động dịch thuật bằng AI
+The system uses **Gemini AI** to automatically translate missing fields in manual submissions.
+Hệ thống sử dụng **Gemini AI** để tự động dịch các trường thông tin còn thiếu.
+
+---
+
+## 5. Deployment / Triển khai
+Whenever you add content via code:
+1. Run `npm run sync-manifest` to log the update.
+2. Run `vercel --prod` to push to the live site.

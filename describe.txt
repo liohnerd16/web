@@ -1,0 +1,143 @@
+mục đích: tập hợp video về các dự khoa học
+Ghi chú: 
+- vì đây là tập hợp video nên sẽ sử dụng phương pháp gắn link.
+
+tính năng của website:
+- tính năng điều khiển video cơ bản: dừng, tiếp tục phát, tua,...
+- có phần chữ/hình ảnh/link,... để giải thích nguyên lý hoạt động khoa học cho dự án trong video.
+- có phần bình luận cho người xem.
+- có phần feedback cho người dùng qua email.
+- có phần contact
+- có phần giới thiệu cơ bản về website
+- có phần nội dung về cập nhật website.
+- có sắp xếp nội dung: A-Z, Newest, Lastest.
+giao diện: có 2 chế độ darkmode/lightmode
+ngôn ngữ: english/vietnamese
+
+frontend:
+- ngôn ngữ lập trình: html+css+ vanilla js
+- animation: đơn giản, ưu tiên độ mượt.
+- 3d: không cần có.
+- dùng API tự động dịch từ tiếng việt sang tiếng anh khi chỉnh sửa nội dung.
+- phần phân tích nguyên lý khoa học sử dụng ngôn ngữ lập trình latex
+- công nghệ sử dụng: render.com
+- các page chính: hướng dẫn, trang chủ, vidoe, cập nhật, giới thiệu
++ hướng dẫn ưu tiên dùng hình ảnh để minh họa.
+backend: 
+- framework: Node.js + Express
+- công nghệ sử dụng: turso.tech.com
+- tính năng đánh giá
+- API A.I: gemini+groq
+storage: cloudinary
+người dùng (user):
+- đăng nhập và đăng ký: sử dụng e-mail.
++ thêm khả năng đổi mật khẩu.
++ kiểm tra email để đảm bảo 1 email chỉ cho một tài khoản.
++ thêm khả năng đổi email.
++ thêm tính năng quên mật khẩu, chỉ hiện và chỉ có ở cửa sổ đăng nhập.
++ thêm khả năng show mật khẩu
++ khi thông báo tài khoản không có sẵn nếu đang mở đăng nhập/đăng ký thì thông báo bị mờ, cần sửa
++ tự động log-out sau 2 giờ.
+- điều khiển và thông tin: có dashboard đơn giản:
++ hồ sơ cá nhân đang bị trống
++ thêm quản lý video đã đăng đơn giản.
+- thông báo: chỉ thông báo trên website.
+- tính năng thêm nội dung: 
++ (thêm link video và a.i tự động hoàn thiện) hoặc 
++ (thêm link video + file tex và a.i tự động hoàn thiện) hoặc 
++ (nhiều link tạo thành 1 series và a.i tự động hoàn thiện).
+- Link vid: link của bất ký website nào, chỉ cần link đó an toàn
+- Nội dung bài đăng: 2 chế độ
++ tự động hoàn thiện nội dung bằng A.I hoặc
++ "Nút đăng bài" trong trường hợp đã hoàn thiện toàn bộ nội dung.
++ sử dụng A.I để tự động dịch bản anh- việt
++ sử dụng link nhúng hình ảnh để thêm hình ảnh vào file tex.
++ chỉ cho phép đăng các dự án về công nghệ và khoa học.
+- thêm khả năng kèm link tiếp thị liên kết cho user
++ cho cả 2 chế độ đăng bài, nhưng không bắt buộc.
++ trong chế độ edit có thể gắn link nếu lúc đăng chưa gắn link.
+- bình luận: 
++ chỉ có chế độ đã đọc/chua đọc, không có tính năng trả lời/thả cảm xúc.
++ chỉ hiển trạng thái đọc khi đang login, bình thường vẫn hiện nhưng không biết trạng thái đọc.
+- tài liệu tex:
++ có cơ chế giải thích đơn giản, ngắn ngọn, dễ hiểu về các lệnh cơ bản có thể sử dụng.
+
+
+agent resume: 
+agent --resume=cffa0c58-45c5-4ef7-b0ec-d7094e84eabf
+agent --resume=cffa0c58-45c5-4ef7-b0ec-d7094e84eabf
+gemini:
+gemini --resume '9f3c099c-4593-4c04-8674-b2482ab9fa86'
+gemini --resume 9f3c099c-4593-4c04-8674-b2482ab9fa86
+gemini --resume 9f3c099c-4593-4c04-8674-b2482ab9fa86
+gemini --resume 9f3c099c-4593-4c04-8674-b2482ab9fa86
+gemini --resume 9f3c099c-4593-4c04-8674-b2482ab9fa86
+gemini --resume "9f3c099c-4593-4c04-8674-b2482ab9fa86"
+gemini --resume "9f3c099c-4593-4c04-8674-b2482ab9fa86"
+gemini --resume "9f3c099c-4593-4c04-8674-b2482ab9fa86"
+gemini --resume "9f3c099c-4593-4c04-8674-b2482ab9fa86"
+gemini --resume "1e4cb1a9-3064-4ddf-bf0d-62467a79a708"
+gemini --resume "1e4cb1a9-3064-4ddf-bf0d-62467a79a708"
+gemini --resume "a95c9d39-57c8-498f-addc-746a753e989e"
+gemini --resume "80364add-d399-43f8-bc09-535d3123a5a5"
+gemini --resume "223363b7-1cd2-4c36-82a4-5eb3f3c08289"
+gemini --resume "223363b7-1cd2-4c36-82a4-5eb3f3c08289"
+gemini --resume "75ad38f0-5771-4dcb-a8df-0f3d0a9338c0"
+gemini --resume "75ad38f0-5771-4dcb-a8df-0f3d0a9338c0"
+gemini --resume "c60e3c69-b2fb-4114-bd13-d9d65289730d"
+gemini --resume "6f1c7d6f-d827-4a87-b464-94489098aa1f"
+gemini --resume "a52a3b18-750a-42fc-b62f-149fd0b73032"
+gemini --resume "18823fff-fa24-46ac-89ef-fd91295bc7b2"
+gemini --resume "18823fff-fa24-46ac-89ef-fd91295bc7b2"
+gemini --resume "2b5fe4ec-b9b8-4eca-bf9e-0c97a1e1f3fd"
+gemini --resume "2635bfd5-6c0f-4c57-91dc-0780d9ed7cac"
+agy:
+agy --conversation=05425fe0-1c13-48be-be56-32304d4ba0b7
+codex:
+codex resume 019df807-3c4d-7420-bb9e-ab22ccaf8aef
+codex resume 019df807-3c4d-7420-bb9e-ab22ccaf8aef
+codex resume 019e5420-40e4-7952-b262-96f16454b740
+codex resume 019e78e7-9a44-72a3-b5f8-69b53e0b5e15
+
+cloudinary:
+   * CLOUDINARY_CLOUD_NAME= liohnerd16 
+   (Tên đám mây của bạn)
+   * CLOUDINARY_API_KEY= 655573812338824 
+   (Mã Key)
+   * CLOUDINARY_API_SECRET= Zz_sl2aeeUfTExYVWfJJyvoMMQ4 
+   (Mã Secret)
+
+GOOGLE_API_KEY= AIzaSyAfHId1GoaNXkfnntw_i1G8HnE9M14rcTc
+(Dán mã của bạn vào đây)
+AQ.Ab8RN6I_bL_-lqKe1xL9cy6mVQGZVZRHI9BHof6Q_h_SknM5xA
+
+TURSO_DATABASE_URL:
+libsql://scivid-db-liohnerd16.aws-ap-northeast-1.turso.io
+TURSO_AUTH_TOKEN:
+eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3Nzk5ODM2MDAsImlkIjoiMDE5ZTZmNDgtYzAwMS03YzE0LWE3N2MtZTU1YTBkMDgzNTYyIiwicmlkIjoiMzdjODY2ZTEtZTg2Ny00ZTI2LWEwMWEtYzJkMGMwMWM2YzI3In0.fvtNXR9PmpuoKq51LMiOZ1qdlzAfVbV2sa5AU8maCLxCauIQhCfdznvX9svRYTO1qtYIIp1uBYVOxIiqM2EUBA
+
+tokens github:
+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
+
+render:
+rnd_hOP86KUsGvrFwkAsE2tTYoIJQtuO
+
+smtp_Google app password:
+pkvpuvwkzquitmhp
+
+groq:
+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
+
+các thông số sau vào phần mềm hoặc website:
+
+Thông số (Field)			Giá trị cần điền (Value)
+SMTP Server					smtp.gmail.com
+Port 						(Cổng)	465 (khuyên dùng) hoặc 587
+Encryption (Mã hóa)			SSL (nếu dùng port 465) hoặc TLS (nếu dùng port 587)
+Authentication (Xác thực)	Chọn Yes / True
+Username (Tài khoản)		Địa chỉ Gmail đầy đủ của bạn (Ví dụ: tenban@gmail.com)
+Password (Mật khẩu)			Mật khẩu ứng dụng 16 ký tự vừa tạo ở Bước 2 (viết liền, không kèm dấu cách)
+
+twelveslab:
+tlk_2D0MBZY3CYWJG52NPQV4P36BQ073
+

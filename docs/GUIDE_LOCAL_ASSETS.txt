@@ -1,0 +1,37 @@
+# GUIDE TO LOCAL ASSETS / HƯỚNG DẪN QUẢN LÝ TÀI NGUYÊN CỤC BỘ
+
+You can store images and videos directly in the project folder.
+Bạn có thể lưu trữ hình ảnh và video trực tiếp trong thư mục dự án.
+
+---
+
+## 1. Folder Structure / Cấu trúc thư mục
+Place your files in these directories / Đặt các file của bạn vào các thư mục sau:
+- Images / Hình ảnh: `public/assets/images/`
+- Videos / Video: `public/assets/videos/`
+
+---
+
+## 2. Using Images in LaTeX / Sử dụng Hình ảnh trong LaTeX
+Use paths starting with `/assets/images/` / Sử dụng đường dẫn bắt đầu bằng `/assets/images/`.
+
+**Example / Ví dụ:**
+```latex
+\includegraphics{/assets/images/experiment.png}
+```
+
+---
+
+## 3. Using Local Videos / Sử dụng Video cục bộ
+To use your own recorded videos / Để sử dụng video bạn tự quay:
+
+### Step 1: Copy Video / Bước 1: Chép Video
+Place the file into `public/assets/videos/` / Đặt file vào `public/assets/videos/`.
+
+### Step 2: Register / Bước 2: Khai báo
+Enter the local path in `db.js` / Nhập đường dẫn cục bộ vào `db.js`:
+`"/assets/videos/my-video.mp4"`
+
+### Step 3: Update / Bước 3: Cập nhật
+Delete `data.db` and run `npm start` / Xóa `data.db` và chạy `npm start`.
+The system will show the browser's native player / Hệ thống sẽ hiển thị trình phát mặc định của trình duyệt.

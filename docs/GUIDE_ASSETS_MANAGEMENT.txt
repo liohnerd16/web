@@ -1,0 +1,84 @@
+# IMAGE MANAGEMENT / HƯỚNG DẪN QUẢN LÝ HÌNH ẢNH
+## (External URLs + Local SVGs)
+
+This guide helps you manage images for your project using direct URLs or local SVG files.
+Hướng dẫn này giúp bạn quản lý hình ảnh cho dự án bằng URL trực tiếp hoặc file SVG cục bộ.
+
+---
+
+### 1. IMAGES & GIFs / HÌNH ẢNH & ẢNH ĐỘNG
+
+**Option A: Paste External URLs (recommended)**
+- Upload your image to any free image hosting (imgur, postimages, etc.)
+- Copy the direct image URL (must end with .jpg, .png, .gif, etc.)
+- Paste the URL directly in the Edit modal's image input
+- Format: `https://example.com/path/to/image.jpg`
+
+**Option B: Local SVGs (for diagrams)**
+- Place SVG files in `public/assets/images/projects/`
+- Reference by path: `/assets/images/projects/name.svg`
+- These are always available and don't need external hosting
+
+**Option C: Google Drive (Hotlink via Server Proxy)**
+- Upload your image to Google Drive
+- Set file visibility to **"Anyone with the link"**
+- Copy the share link or direct URL
+- Paste directly into the Edit modal's image input — the system auto-proxies it
+- Supported URL formats:
+  - `https://drive.google.com/uc?export=view&id=FILE_ID`
+  - `https://drive.google.com/uc?export=download&id=FILE_ID`
+  - `https://drive.google.com/file/d/FILE_ID/view`
+- The backend (`/api/proxy-image`) automatically extracts the FILE_ID, fetches via `export=download&confirm=t`, and returns the raw image bytes — bypassing Google's HTML warning page.
+
+**How to use / Cách dùng:**
+- In Edit modal: paste URL into the image input and click "Add URL"
+- In LaTeX content: `\includegraphics[Label for alt]{https://...}` or `\includegraphics[Label]{/assets/images/projects/name.svg}`
+- Gallery with add/delete/reorder is available in the Edit modal
+
+**Validation:** No automatic validation needed. Verify image URLs manually.
+
+---
+
+### 2. VIDEOS (YouTube) / VIDEO HƯỚNG DẪN
+YouTube provides "infinite" storage and handles video streaming perfectly.
+YouTube cung cấp bộ nhớ vô hạn và xử lý luồng video cực tốt.
+
+**Steps / Các bước:**
+1.  Upload your video to your YouTube channel.
+2.  Set **Visibility** to **"Unlisted" (Không công khai)**. 
+    - *Benefit:* Only people visiting your website can see it; it won't show on YouTube search.
+3.  Copy the **Embed URL** (format: `https://www.youtube.com/embed/VIDEO_ID`).
+4.  **How to use / Cách dùng:**
+    - Paste this URL into the `embedUrl` column in `server/database/db.js`.
+
+---
+
+### 3. ICONS & LOGOS (GitHub CDN) / ICON & LOGO HỆ THỐNG
+For small system assets, use your GitHub repository as a Content Delivery Network (CDN).
+Đối với các tài sản hệ thống nhỏ, hãy dùng chính GitHub làm mạng phân phối nội dung.
+
+**Steps / Các bước:**
+1.  Upload your icons/logos to the `public/assets/images/` folder on GitHub.
+2.  Use the **jsDelivr** link format to prevent link breakage:
+    - Format: `https://cdn.jsdelivr.net/gh/[Your_User]/[Your_Repo]/public/assets/images/logo.svg`
+3.  **How to use / Cách dùng:**
+    - Use this link in `index.html` or `styles.css`.
+
+---
+
+### SUMMARY TABLE / BẢNG TỔNG KẾT
+
+| Content Type / Loại nội dung | Storage / Nơi lưu | Tool / Công cụ |
+| :--- | :--- | :--- |
+| **Explanation Images / Ảnh bài viết** | External URL, Google Drive, or Local SVG | `\includegraphics{...}` |
+| **Animated GIFs / Ảnh động** | External URL or Google Drive | `\includegraphics{...}` |
+| **Science Videos / Video thí nghiệm** | YouTube | `embedUrl` in DB |
+| **Site Logos / Logo website** | GitHub | HTML/CSS tags |
+
+---
+
+### ⚠️ IMPORTANT / LƯU Ý QUAN TRỌNG
+- **For production**, use reliable image hosting, Google Drive (via proxy), or local SVGs to avoid broken links.
+- **Không dùng trang tạm** kém uy tín vì link sẽ bị hỏng sau vài tháng.
+- Google Drive links are auto-proxied through `server/routes/proxy.js` so they display correctly even in `<img>` tags.
+- Local SVGs in `public/assets/images/projects/` are always safe and recommended for diagrams.
