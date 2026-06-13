@@ -1,0 +1,31 @@
+```
+# Environment variables
+.env*
+!.env.example
+
+# Firebase service account (sensitive credentials)
+server/database/firebase-service-account.json
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# IDE files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+target/
+```

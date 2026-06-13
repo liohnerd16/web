@@ -14,7 +14,11 @@
     "animate-svg": "node scripts/animate-svg.js",
     "check-animations": "node scripts/animate-svg.js --check",
     "build": "node scripts/build.mjs",
-    "vercel-build": "node scripts/build.mjs"
+    "vercel-build": "node scripts/build.mjs",
+    "serve": "firebase emulators:start",
+    "deploy": "firebase deploy --only hosting,functions",
+    "deploy:all": "firebase deploy",
+    "seed-firestore": "node scripts/seed-firestore.js"
   },
   "engines": {
     "node": ">=22.12.0"
