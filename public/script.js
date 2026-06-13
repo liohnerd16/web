@@ -1090,20 +1090,11 @@ function renderUpdates(updates) {
     return;
   }
 
-  const firstChild = ul.firstElementChild;
-  if (firstChild && !firstChild.hasAttribute('data-id')) {
-    ul.innerHTML = '';
-  }
-
-  const existingIds = new Set();
-  ul.querySelectorAll('li[data-id]').forEach(li => {
-    existingIds.add(li.getAttribute('data-id'));
-  });
+  ul.innerHTML = '';
 
   const fragment = document.createDocumentFragment();
   updates.forEach((u) => {
     const id = String(u.id);
-    if (existingIds.has(id)) return;
 
     // Ưu tiên bản tiếng Việt nếu có, nếu không thì dùng bản gốc
     const displayTitle = (lang === 'vi' && u.titleVi && u.titleVi.trim() !== '') ? u.titleVi : u.title;
