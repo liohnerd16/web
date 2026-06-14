@@ -23,6 +23,9 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
+// Proxy — does NOT need DB (runs before DB middleware)
+app.use('/api', proxyRouter);
+
 // DB readiness middleware — ensures tables exist before any route handler
 let dbReady = false;
 app.use(async (req, res, next) => {
@@ -46,7 +49,6 @@ app.use('/api/comments', commentsRouter);
 app.use('/api/feedback', feedbackRouter);
 app.use('/api/updates', updatesRouter);
 app.use('/api/ratings', ratingsRouter);
-app.use('/api', proxyRouter);
 
 app.use(express.static(path.join(__dirname, '..', 'public'), {
   maxAge: '1y',

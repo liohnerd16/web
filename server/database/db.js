@@ -5,9 +5,10 @@ const { createClient } = require('@libsql/client');
 const path = require('path');
 
 const isCloud = !!process.env.TURSO_DATABASE_URL;
-const dbPath = path.join(__dirname, 'data.db');
+const isVercel = !!process.env.VERCEL;
+const dbPath = isVercel ? path.join('/tmp', 'data.db') : path.join(__dirname, 'data.db');
 
-console.log(`Database Mode: ${isCloud ? 'Cloud (Turso)' : 'Local (SQLite)'}`);
+console.log(`Database Mode: ${isCloud ? 'Cloud (Turso)' : isVercel ? 'Vercel (/tmp SQLite)' : 'Local (SQLite)'}`);
 
 const db = createClient({
   url: isCloud ? process.env.TURSO_DATABASE_URL : `file:${dbPath}`,
