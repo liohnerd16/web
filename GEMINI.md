@@ -4,7 +4,7 @@
 - **Bilingual Content**: All user-facing strings must have English and Vietnamese versions.
 - **Bilingual Grouping**: Every new Category or Topic must be added to the `I18N` object in `public/script.js` for both English and Vietnamese.
 - **LaTeX Explanations**: LaTeX content is stored in `server/database/latex-content.json` (keyed by title) and the `videos` table (`explanationRaw`, `explanationViRaw`).
-- **Visual Assets**: Use SVG or external image URLs for diagrams. Google Drive URLs MUST be auto-proxied via `/api/proxy-image?url=` to bypass raw byte restrictions. Frontend uses `proxyImageUrl(url)` helper.
+- **Visual Assets**: Use SVG or external image URLs for diagrams. Google Drive URLs MUST be auto-proxied via `/api/proxy-image?url=` to bypass raw byte restrictions. Frontend uses `proxyImageUrl(url)` helper. The site logo is stored locally at `public/assets/images/ui/gnz-logo.png` (not loaded via proxy).
 - **Smart Topic Clustering**: The system automatically clusters related projects under shared topics (EN/VI) using AI to prevent topic inflation and ensure logical grouping.
 - **Performance First**: 
     - **API Optimization**: List endpoint (`/api/videos`) is lightweight (no explanations). Use detail endpoint (`/api/videos/:id`) for full content.
@@ -12,6 +12,7 @@
     - **Updates Cache**: `allUpdates` is persisted in `localStorage` (`gnz_updates_cache`) and uses stale-while-revalidate (60s TTL) — renders cached data instantly, fetches only when stale. Language toggle calls `renderUpdates(allUpdates)` with **zero API calls**.
     - **Edge Optimization**: The `GET /api/videos` endpoint uses Vercel Edge Caching (`s-maxage=3600`). The `GET /api/updates` endpoint uses a shorter 60-second cache.
 - **System Monitoring**: `npm run watchdog` and `npm run sync-manifest` monitor the root directory and require detailed technical summaries of system changes.
+- **Vercel DB Fallback**: On Vercel without Turso, the database is stored at `/tmp/data.db` (detected via `process.env.VERCEL`). Seed data runs on every cold start. The proxy endpoint `/api/proxy-image` is registered **before** the DB middleware so images load independently of DB health.
 
 ## Agent Onboarding (MANDATORY SETUP)
 Upon entering this workspace, any AI agent **MUST** immediately perform the following setup steps:

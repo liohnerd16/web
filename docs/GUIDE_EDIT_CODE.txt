@@ -5,12 +5,19 @@ File chỉnh sửa chính: `server/database/db.js`
 
 ---
 
-## 1. Data Management (Turso Cloud)
-Your database is now on the cloud (**Turso**). 
-Cơ sở dữ liệu hiện tại được lưu trên đám mây (**Turso**).
+## 1. Data Management / Quản lý Dữ liệu
 
-- **Local Edit**: Changes in `server/database/db.js` (samples array) will sync to the cloud when you deploy.
-- **Production Update**: Run `vercel --prod` to apply code and database changes to the live site.
+### Local Development (SQLite)
+- Database được lưu tại `server/database/data.db`
+- `initDb()` tự động tạo bảng và seed data sample (13 videos + 6 updates)
+
+### Production on Vercel
+- **Có Turso**: Dữ liệu persistent trên cloud, cần `TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN`
+- **Không Turso**: SQLite fallback tại `/tmp/data.db` (detect `process.env.VERCEL`). Seed data chạy mỗi cold start. Dữ liệu người dùng KHÔNG persistent nếu không có Turso.
+
+### Sync code changes to live site:
+- Commit & push to GitHub → Vercel auto-deploys
+- Hoặc: `vercel --prod` (nếu dùng Vercel CLI)
 
 ---
 
@@ -18,8 +25,9 @@ Cơ sở dữ liệu hiện tại được lưu trên đám mây (**Turso**).
 Categories are generated **automatically** from your video entries. 
 
 ### To Add or Rename:
-1. Update the category name at position #4 in the `samples` array in `db.js`.
-2. Deploy: `vercel --prod`.
+1. Update the category in `db.js` (samples array, index 3-4 for EN/VI).
+2. Add I18N key in `public/script.js` if needed.
+3. Deploy to Vercel.
 
 ---
 
@@ -28,7 +36,7 @@ UI text (buttons, menus, toasts) is managed in: `public/script.js`.
 
 1. Find the `const I18N = { ... }` variable.
 2. Edit English (`en`) or Vietnamese (`vi`) keys.
-3. To auto-sync translations: `npm run sync`.
+3. To auto-sync translations: `npm run translate`.
 
 ---
 
@@ -43,13 +51,20 @@ The dashboard includes advanced tools for content management:
 
 ## 5. Maintenance Workflow (IMPORTANT)
 Before pushing any major code changes:
-1. **Sync Manifest**: `npm run sync-manifest` (Generates "What's New" news entries).
-2. **Check Images**: `npm run check-images` (Verifies LaTeX diagrams).
-3. **Deploy**: `vercel --prod`.
+1. **Build**: `npm run build` (minify JS/CSS + optimize SVGs).
+2. **Check syntax**: `node --check server/*.js` (và các file đã sửa).
+3. **Sync Manifest**: `npm run sync-manifest` (tạo "What's New" entries).
+4. **Deploy**: Commit & push to GitHub (Vercel auto-deploys) hoặc `vercel --prod`.
+5. **Lưu ý**: `check-images` và `check-style` là legacy — KHÔNG chạy.
 
 ---
 
-## 5. Security (Secrets)
+## 6. Security (Secrets)
 Never hardcode API Keys. Manage them via:
 - **Local**: `.env` file.
-- **Production**: Vercel Dashboard or `vercel env add`.
+- **Production**: Vercel Dashboard → Project Settings → Environment Variables.
+
+## 7. Vercel-specific Notes
+- **Proxy route**: `/api/proxy-image` chạy TRƯỚC DB middleware — logo/favicon độc lập với DB.
+- **Logo local**: `public/assets/images/ui/gnz-logo.png` — không phụ thuộc Google Drive.
+- **Build output**: HTML references `script.min.js` và `styles.min.css`. Chạy `npm run build` trước deploy.

@@ -138,6 +138,12 @@ npm run check-links
 - Kiểm tra routes trong vercel.json
 - Đảm bảo file tồn tại trong public/
 
+**5. Database error / Không hiện video trên Vercel:**
+- Nếu không dùng Turso, DB fallback tại `/tmp/data.db` (tự động).
+- Seed data chạy lại mỗi cold start. Dữ liệu user KHÔNG persistent nếu thiếu Turso.
+- Proxy route `/api/proxy-image` hoạt động độc lập với DB — logo vẫn hiển thị.
+- Logo local tại `/assets/images/ui/gnz-logo.png`.
+
 ---
 
 ## 6. Chi phí

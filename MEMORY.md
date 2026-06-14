@@ -21,3 +21,9 @@
   - **Minification & Edge Caching**: Automated build pipeline for minified CSS/JS and Vercel Edge caching enabled.
   - **Updates Stale-While-Revalidate**: Cache-first with 60s TTL, full re-render on language toggle using `titleVi`/`bodyVi` fields for Vietnamese display.
   - **Updates Language Toggle Fix (June 13, 2026)**: Removed incremental `data-id` tracking in `renderUpdates()` that prevented DOM updates on language switch. Now clears and re-renders all items from cache, ensuring bilingual content displays correctly.
+- **Vercel Migration & DB Fix (June 14, 2026)**:
+  - Migrated from local Vercel CLI deploy to GitHub-based deploy (user's own Vercel account).
+  - Fixed `server/database/db.js` to detect `process.env.VERCEL` and use `/tmp/data.db` (writable path in serverless functions).
+  - Moved proxy route (`/api/proxy-image`) before DB middleware in `server/server.js` so logo and favicons load even if DB initialization fails.
+  - Replaced Google Drive proxy logo with local `public/assets/images/ui/gnz-logo.png` (downloaded from original Drive file).
+  - Updated `index.html` logo + favicon to reference local PNG file directly.

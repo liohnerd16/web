@@ -1,5 +1,5 @@
 # ULTIMATE DEPLOYMENT GUIDE / HƯỚNG DẪN TRIỂN KHAI TOÀN TẬP
-## (Vercel CLI + Turso — 100% FREE / MIỄN PHÍ 100%)
+## (GitHub + Vercel — 100% FREE / MIỄN PHÍ 100%)
 
 Follow this sequence to launch your science website on the internet for free using Vercel.
 Làm theo trình tự này để đưa website khoa học của bạn lên mạng miễn phí bằng Vercel.
@@ -7,35 +7,36 @@ Làm theo trình tự này để đưa website khoa học của bạn lên mạn
 ---
 
 ### PHASE 1: Preparation / GIAI ĐOẠN 1: Chuẩn bị
-1. **Turso (Cloud Database)**:
+1. **Turso (Cloud Database - recommended for persistence)**:
    - Sign up at [Turso.tech](https://turso.tech).
-   - Create a database (e.g., `scivid-db`).
+   - Create a database (e.g., `gnz-db`).
    - Copy the **TURSO_DATABASE_URL** (starts with `libsql://`) and **TURSO_AUTH_TOKEN**.
 2. **Google Gemini API**:
    - Get your API Key from [Google AI Studio](https://aistudio.google.com/).
 3. **Vercel Account**:
    - Sign up at [Vercel.com](https://vercel.com).
+4. **GitHub Repository**:
+   - Create a repo on GitHub, push code to it.
 
 ---
 
-### PHASE 2: Vercel CLI (Deployment) / GIAI ĐOẠN 2: Triển khai qua CLI
-We use Vercel CLI to push code directly from your computer without needing GitHub.
-Chúng ta dùng Vercel CLI để đẩy mã nguồn trực tiếp từ máy tính mà không cần GitHub.
+### PHASE 2: GitHub Deployment / GIAI ĐOẠN 2: Triển khai qua GitHub
 
-1. **Install Vercel CLI / Cài đặt CLI**:
+1. **Build trước khi push**:
    ```powershell
-   npm install -g vercel
+   npm run build
+   npm run sync-manifest
    ```
-2. **Login / Đăng nhập**:
+2. **Commit & Push to GitHub**:
    ```powershell
-   vercel login
+   git add .
+   git commit -m "Mô tả thay đổi"
+   git push
    ```
-3. **Deploy (First time) / Triển khai (Lần đầu)**:
-   ```powershell
-   vercel
-   ```
-   - Press **Enter** for all default questions.
-   - Once finished, you will get a Preview URL.
+3. **Kết nối Vercel với GitHub**:
+   - Vào [vercel.com/new](https://vercel.com/new)
+   - Import repository GitHub của bạn
+   - Vercel tự động deploy khi push code
 
 ---
 
@@ -43,27 +44,31 @@ Chúng ta dùng Vercel CLI để đẩy mã nguồn trực tiếp từ máy tín
 Your site needs the "keys" to work with the database and AI.
 Website cần các "chìa khóa" để kết nối database và AI.
 
-1. **Add keys via CLI / Thêm khóa qua CLI**:
-   ```powershell
-   vercel env add TURSO_DATABASE_URL
-   vercel env add TURSO_AUTH_TOKEN
-   vercel env add GEMINI_API_KEY
-   ```
-2. **Push to Production / Đẩy lên bản chính thức**:
-   ```powershell
-   vercel --prod
-   ```
+Add them in **Vercel Dashboard → Project Settings → Environment Variables**:
+Thêm trong **Vercel Dashboard**:
+```
+TURSO_DATABASE_URL  (optional — nếu không set sẽ dùng SQLite /tmp)
+TURSO_AUTH_TOKEN    (optional)
+GOOGLE_API_KEY      (for AI translation)
+JWT_SECRET          (for auth tokens)
+SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS (for email)
+```
 
 ---
 
 ### STEP 4: Verification / BƯỚC 4: Kiểm tra
-Your website is now LIVE at the URL provided (e.g., `science-video-aggregator.vercel.app`).
+Your website is now LIVE at the URL provided by Vercel.
 Website của bạn đã hoạt động tại đường dẫn được cung cấp!
 
 ---
 
+### Lưu ý về Database trên Vercel
+- **Nếu không có Turso**: SQLite được lưu tại `/tmp/data.db`. Seed data chạy mỗi lần cold start — dữ liệu user-submitted KHÔNG được bảo toàn.
+- **Nếu có Turso**: Dữ liệu persistent, khuyến nghị cho production.
+
 ### MAINTENANCE / BẢO TRÌ
-- **Update Code**: Just run `vercel --prod` again after saving your changes.
-  **Cập nhật**: Chỉ cần chạy lại lệnh `vercel --prod` sau khi bạn sửa code.
+- **Update Code**: Commit & push to GitHub, Vercel auto-deploys.
+  **Cập nhật**: Commit & push lên GitHub, Vercel tự động deploy.
 - **Secrets**: Manage keys in the Vercel Dashboard under **Project Settings > Environment Variables**.
   **Bảo mật**: Quản lý các mã khóa trong mục Environment Variables trên web Vercel.
+- **Trước mỗi lần push**: Chạy `npm run build && npm run sync-manifest`.

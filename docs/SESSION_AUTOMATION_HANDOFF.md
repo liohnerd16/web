@@ -14,7 +14,7 @@ Viec bat buoc truoc khi sua code:
 2. Doc package.json de nam cac lenh automation (chu y: check-images va check-style da bi xoa).
 3. Doc server/database/db.js (schema 23 cot) va server/database/latex-content.json.
 4. Doc public/script.js: hieu co che **Client-side Caching** de render/filter/lang-toggle tuc thi.
-5. Du an **KHONG dung Git**. Khong chay lenh git.
+ 5. Du an **dung Git + GitHub** de deploy len Vercel. Sau khi sua code, can `git add`, `git commit`, `git push`.
 6. Neu sua file trong public/, server/, hoac scripts/, phai chay: `npm run sync-manifest`.
 7. **Affiliate Links**: Dung giao dien dong (rows) trong Dashboard, tu dong serialize.
  8. Khi post A.I, inline base64 SVGs bi strip, hien dialog goi y them anh sau submit.
@@ -24,7 +24,7 @@ Viec bat buoc truoc khi sua code:
  12. **Static bilingual content**: Dung `.lang-en`/`.lang-vi` class, `applyLang()` tu dong toggle.
 
  13. Google Drive image URLs duoc auto-proxy qua `/api/proxy-image` (`server/routes/proxy.js`) de hien thi trong `<img>`.
- 12. Khong xoa server/database/data.db vi co du lieu runtime.
+ 12. Database: local la `server/database/data.db`, tren Vercel la `/tmp/data.db`. Khong xoa cac file nay.
  13. Bao cao ro lenh nao da chay, lenh nao fail.
  14. Notification system: count-based, ho tro song ngu qua videoId.
  15. **Smart Topic Clustering**: AI tu dong group cac project lien quan vao Topic chung (EN/VI) de tranh lam phat topic. He thong quet cac project "lonely" va retroactively update chung.
@@ -63,7 +63,7 @@ Viec bat buoc truoc khi sua code:
 
 ## Canh Bao Hien Trang
 
-- **KHONG CO GIT**: Thư mục `.git` và file `.gitignore` đã bị xóa. Đây là dự án quản lý thủ công (no-version-control).
+- **GIT ACTIVE**: Dự án dùng Git + GitHub để deploy lên Vercel. Commit & push để trigger auto-deploy.
 - **Affiliate Links UI**: Giao diện nhập link tiếp thị dạng dòng động (Dynamic Rows) giúp người dùng nhập Name và URL riêng biệt, tránh lỗi định dạng `|`.
 - **Performance Fix**: Mọi thao tác lọc, tìm kiếm và chuyển ngôn ngữ đều diễn ra tức thì nhờ bộ nhớ đệm (caching) tại trình duyệt.
 - **Cleanup Completed**: Toàn bộ file rác, script cũ (`validate-images`, `migrate-tex`), và log tạm đã bị xóa sạch.

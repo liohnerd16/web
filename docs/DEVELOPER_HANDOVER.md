@@ -18,12 +18,12 @@ Mỗi khi thêm video mới, chu trình sau đây cần được duy trì:
 3. **Authoring**: Add/update entries in `server/database/latex-content.json` with bilingual LaTeX.
 4. **Visuals**: Paste image URLs in Edit modal or add SVG.
 5. **LaTeX images**: Use `\includegraphics[Descriptive Label]{path}`.
-6. **Validate**: Manual image check via Edit modal gallery.
-7. **Affiliate**: Enter links in submit form (`Name | URL`).
-8. **DB Integration**: Add 20-column row to `samples` in `db.js`.
-9. **Auto-Logging**: Run `npm run sync-manifest` to log news.
-10. **AI Translation**: Run `npm run translate` for missing `Vi` fields.
-11. **Deployment**: Run `npx vercel --prod` to push updates.
+ 6. **Validate**: Manual image check via Edit modal gallery.
+ 7. **Affiliate**: Enter links in submit form (dynamic rows).
+ 8. **DB Integration**: Add row to `samples` in `db.js`.
+ 9. **Auto-Logging**: Run `npm run sync-manifest` to log news.
+ 10. **AI Translation**: Run `npm run translate` for missing `Vi` fields.
+ 11. **Deployment**: Commit & push to GitHub (Vercel auto-deploys) or `npx vercel --prod`.
 
 ---
 
@@ -33,6 +33,7 @@ Mỗi khi thêm video mới, chu trình sau đây cần được duy trì:
 1. **Paste image URLs in Edit modal (recommended)** — Gallery display in `public/script.js`.
 2. **Local SVG files** in `public/assets/images/projects/`.
 3. **Google Drive Image Proxy**: Uses `GET /api/proxy-image?url=...` to bypass raw byte restrictions. Frontend uses `proxyImageUrl(url)` helper.
+4. **Site Logo**: Stored locally at `public/assets/images/ui/gnz-logo.png`. Not loaded via Drive proxy.
 
 ---
 
@@ -76,3 +77,6 @@ The application uses a "Cache-First, Then-Fetch" strategy with smart preloading:
 - **Vercel**: `vercel.json` manages explicit asset routing and SPA catch-all.
 - **Minification**: `npm run build` runs `scripts/build.mjs` (terser + clean-css + SVG optimizer).
 - **Static Cache**: 1-year immutable cache for all public assets.
+- **GitHub Deploy**: Commit & push → Vercel auto-deploys. Run `npm run build` and `npm run sync-manifest` before pushing.
+- **Database Path on Vercel**: Without Turso, SQLite uses `/tmp/data.db` (detected via `process.env.VERCEL`). The `seed()` function runs on every cold start.
+- **Proxy Route Order**: `/api/proxy-image` is registered BEFORE the DB readiness middleware in `server/server.js`. This ensures logo, favicon, and Drive images load even if database initialization fails.
